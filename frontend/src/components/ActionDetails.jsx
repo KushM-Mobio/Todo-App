@@ -28,6 +28,7 @@ const ActionDetails = ({}) => {
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
   const BASE_URL = "http://127.0.0.1:8080";
+  // const BASE_URL = "http://127.0.0.1:8002";
   let config = {
     headers: {
       Authorization: "token de1135a86424642:196b91c7ed9349b",
@@ -123,7 +124,7 @@ const ActionDetails = ({}) => {
             variant="contained"
             startIcon={<ArrowBackIosIcon sx={{ fontSize: "small" }} />}
             onClick={() => {
-              navigate("/");
+              navigate("/frontend");
             }}
             style={{backgroundColor: "#334155"}}
           >

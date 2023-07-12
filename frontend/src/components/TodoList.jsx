@@ -21,9 +21,11 @@ import InputLabel from "@mui/material/InputLabel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+// import getCsrfToken from "../api/api";
 
 const TodoList = ({}) => {
   const BASE_URL = "http://127.0.0.1:8080";
+  // const BASE_URL = "http://127.0.0.1:8002";
   const [todos, setTodos] = useState([]);
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
@@ -34,9 +36,12 @@ const TodoList = ({}) => {
     category: "",
   });
   const navigate = useNavigate();
+  // const csrfToken = getCsrfToken()
+  // const [csrfToken, setCsrfToken] = useState("");
 
   let config = {
     headers: {
+      // 'X-Frappe-CSRF-Token': csrfToken,
       Authorization: "token de1135a86424642:196b91c7ed9349b",
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -55,11 +60,15 @@ const TodoList = ({}) => {
   useEffect(() => {
     (async () => {
       try {
+        // Set the headers including the CSRF token
+        // config.headers['X-Frappe-CSRF-Token'] = token;
+
         // const response = await getDoc("Action", null);
         const { data } = await axios.get(
           `${BASE_URL}/api/resource/Action?fields=["title", "name", "date", "description", "category", "status", "due_date"]`,
           config
         );
+
         // console.log(data);
         const array = data?.data;
         setTodos(array);
@@ -78,19 +87,33 @@ const TodoList = ({}) => {
 
   const handleCheckboxChange = async (todo) => {
     console.log(todo.name);
-    const { data } = await axios.put(
-      `${BASE_URL}/api/resource/Action/${todo.name}`,
-      {
-        status: "Completed",
-      },
-      config
-    );
+    try {
+      // const token = await getCsrfToken();
+      // setCsrfToken(token)
+      const { data } = await axios.put(
+        `${BASE_URL}/api/resource/Action/${todo.name}`,
+        {
+          status: "Completed",
+        },
+        // {
+        //   headers: {
+        //     'X-Frappe-CSRF-Token': token,
+        //     Authorization: "token de1135a86424642:196b91c7ed9349b",
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json",
+        //   },
+        // }
+        config
+      );
 
-    const updatedTodos = todos.map((item) =>
-      item.name === todo.name ? { ...item, status: "Completed" } : item
-    );
+      const updatedTodos = todos.map((item) =>
+        item.name === todo.name ? { ...item, status: "Completed" } : item
+      );
 
-    setTodos(updatedTodos);
+      setTodos(updatedTodos);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleClickOpen = () => {
@@ -151,6 +174,10 @@ const TodoList = ({}) => {
     navigate(`/actionDetails/${name}`);
   };
 
+  const handleCalender = () => {
+    navigate("/calenderview")
+  }
+
   // console.log(todos);
   // console.log(category);
   // console.log({ newAction });
@@ -162,8 +189,12 @@ const TodoList = ({}) => {
           <p style={{ fontSize: "2rem", fontWeight: "600", color: "#212121" }}>
             List
           </p>
-          <Button style={{ backgroundColor: "#334155" }} variant="contained">
-            + New List
+          <Button
+            style={{ backgroundColor: "#334155" }}
+            variant="contained"
+            onClick={handleCalender}
+          >
+            Go to Calender
           </Button>
         </div>
 
@@ -306,8 +337,10 @@ const TodoList = ({}) => {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button style={{color: '#334155'}} onClick={handleClose}>Cancle</Button>
-            <Button style={{color: '#334155'}} onClick={handleActionBtn} >
+            <Button style={{ color: "#334155" }} onClick={handleClose}>
+              Cancle
+            </Button>
+            <Button style={{ color: "#334155" }} onClick={handleActionBtn}>
               Add Action
             </Button>
           </DialogActions>
