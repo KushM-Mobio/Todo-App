@@ -1,0 +1,41 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build --base=/assets/frappe_actions/frontend/ && yarn copy-html-entry",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "copy-html-entry": "cp ../frappe_actions/public/frontend/index.html ../frappe_actions/www/frontend.html"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.13.7",
+    "@mui/lab": "^5.0.0-alpha.135",
+    "@mui/material": "^5.13.7",
+    "@mui/x-date-pickers": "^6.9.2",
+    "axios": "^1.4.0",
+    "dayjs": "^1.11.9",
+    "frappe-charts": "^1.6.2",
+    "frappe-react-sdk": "^1.2.7",
+    "frappe-ui": "0.0.112",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
+    "react-toastify": "^9.1.3",
+    "socket.io-client": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@vitejs/plugin-react": "^4.0.1",
+    "eslint": "^8.44.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.1",
+    "vite": "^4.4.0"
+  }
+}
