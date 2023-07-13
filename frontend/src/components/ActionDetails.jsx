@@ -14,6 +14,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useEffect, useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
+import { BASE_URL } from "../constants";
 
 const ActionDetails = ({}) => {
   const { name } = useParams();
@@ -27,8 +28,6 @@ const ActionDetails = ({}) => {
   });
   const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
-  const BASE_URL = "http://127.0.0.1:8080";
-  // const BASE_URL = "http://127.0.0.1:8002";
   let config = {
     headers: {
       Authorization: "token de1135a86424642:196b91c7ed9349b",

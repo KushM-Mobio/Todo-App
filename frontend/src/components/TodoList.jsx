@@ -21,11 +21,10 @@ import InputLabel from "@mui/material/InputLabel";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-// import getCsrfToken from "../api/api";
+import { BASE_URL } from "../constants";
 
 const TodoList = ({}) => {
-  const BASE_URL = "http://127.0.0.1:8080";
-  // const BASE_URL = "http://127.0.0.1:8002";
+
   const [todos, setTodos] = useState([]);
   const [open, setOpen] = useState(false);
   const [category, setCategory] = useState([]);
